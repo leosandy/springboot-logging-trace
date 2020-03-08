@@ -13,7 +13,7 @@ import springboot.logging.trace.filter.TraceLoggingFilter;
  * trace logging selector.
  * @author leo
  */
-public class TraceLoggingSelector implements ImportBeanDefinitionRegistrar /*ImportSelector*/ {
+public class TraceLoggingSelector implements ImportBeanDefinitionRegistrar {
     /**
      * 注册
      * @param importingClassMetadata {@link AnnotationMetadata}
@@ -32,15 +32,4 @@ public class TraceLoggingSelector implements ImportBeanDefinitionRegistrar /*Imp
                 .addPropertyValue("headers",annotationAttributes.get("headers")).getBeanDefinition();
         BeanDefinitionReaderUtils.registerWithGeneratedName(beanDefinition, registry);
     }
-
-
-    /* @Override
-    public String[] selectImports(AnnotationMetadata importingClassMetadata) {
-        Map<String, Object> annotationAttributes = importingClassMetadata.getAnnotationAttributes(EnableLoggingTrace.class.getName());
-
-        if (!Boolean.class.cast(annotationAttributes.getOrDefault("enable","false"))){
-            return new String [0];
-        }
-        return new String[]{TraceLoggingFilter.class.getName()};
-    }*/
 }
