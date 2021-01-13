@@ -1,11 +1,6 @@
 # Logger Trace using the tutorial
-   项目为日志追踪项目，通过`x-trace-id` request head 透传的方式，传递到相关联的项目，通过`x-trace-id`可追踪到整个调用链的日志，包括在项目内部(Method)
+   项目为日志追踪项目(采用注解的方式,即插即用)，通过`x-trace-id` request head 透传的方式，传递到相关联的项目，通过`x-trace-id`可追踪到整个调用链的日志，包括在项目内部(Method)
 上记录的日志.项目依赖于logback、基于slf4j MDC的机制.
-
-### Feature
-
-- support camel quartz logging trace.
-- support Spring `@Scheduled` logging trace.
 
 ## Usage
 
