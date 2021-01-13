@@ -1,6 +1,6 @@
 package springboot.logging.trace.utils;
 
-import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 import org.slf4j.MDC;
 
 /**
@@ -18,6 +18,14 @@ public class TraceUtils {
 	 * 线程ID
 	 */
 	private static final String THREAD_ID = "tid";
+
+    /**
+     * 初始化启动
+     */
+    public static void initialize(){
+        getTraceId();
+    }
+
 	/**
 	 * 获取追踪ID.
 	 */
@@ -38,6 +46,7 @@ public class TraceUtils {
 	 */
 	public static void clear() {
 		MDC.remove(TRACE_ID);
+		MDC.remove (THREAD_ID);
 	}
 
 	/**
@@ -50,8 +59,19 @@ public class TraceUtils {
 	}
 
 	public static String getDefaultTraceId(){
-		return UUID.randomUUID ().toString ().replaceAll ("-","");
+		StringBuffer sid = new StringBuffer();
+
+		sid.append(System.currentTimeMillis());
+
+		for (int i=0; i< 8; i++)
+		{
+			sid.append((char)('a'+ThreadLocalRandom.current().nextInt(26)));
+		}
+		return sid.toString();
 	}
 
+    public static void destroy(){
+        clear();
+    }
 
 }

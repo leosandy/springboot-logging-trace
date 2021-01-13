@@ -28,8 +28,12 @@ public class TraceLoggingSelector implements ImportBeanDefinitionRegistrar {
         if (!(Boolean) annotationAttributes.get("enable")){
             return;
         }
+
         AbstractBeanDefinition beanDefinition =BeanDefinitionBuilder.genericBeanDefinition(TraceLoggingFilter.class)
-                .addPropertyValue("headers",annotationAttributes.get("headers")).getBeanDefinition();
+                .addPropertyValue("headers",annotationAttributes.get("headers"))
+                .addPropertyValue("respLimit",annotationAttributes.get("respLimit"))
+                .addPropertyValue ("order",annotationAttributes.get ("order"))
+                .getBeanDefinition();
         BeanDefinitionReaderUtils.registerWithGeneratedName(beanDefinition, registry);
     }
 }

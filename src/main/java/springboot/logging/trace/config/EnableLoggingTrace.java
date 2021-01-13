@@ -8,6 +8,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.Ordered;
 
 /**
  * enable trace logging.
@@ -28,4 +29,15 @@ public @interface EnableLoggingTrace {
      * {@link HttpServletRequest#getHeaderNames()}
      */
     String [] headers() default {};
+
+    /**
+     * 返回数据最大length限制 默认 1024
+     */
+    int respLimit() default 1024;
+
+    /**
+     * filter 排序默认顺序
+     * @see org.springframework.boot.web.servlet.FilterRegistrationBean#setOrder(int)
+     */
+    int order() default Ordered.LOWEST_PRECEDENCE - 99;
 }

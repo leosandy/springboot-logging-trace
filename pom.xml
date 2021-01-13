@@ -6,7 +6,7 @@
 
   <groupId>spring.boot.logging.trace</groupId>
   <artifactId>logging-trace</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
 
   <name>logging-trace</name>
   <properties>

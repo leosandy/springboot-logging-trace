@@ -10,6 +10,11 @@ import java.util.Enumeration;
  * @author leo
  */
 public final class HttpParameterUtils {
+
+    private static final String FORM_CONTENT_TYPE = "application/x-www-form-urlencoded";
+
+    private static final String FORM_MULTIPART_CONTENT_TYPE = "multipart/form-data";
+
     private HttpParameterUtils() {
 
     }
@@ -20,7 +25,7 @@ public final class HttpParameterUtils {
         while(pnEnu.hasMoreElements()) {
             String pn = pnEnu.nextElement();
             String pv = request.getParameter(pn);
-            params.append(pn).append("=").append( pv).append("&");
+            params.append(pn).append("=").append(pv == null ? "":pv).append("&");
         }
 
         if (params.length() > 0) {
@@ -28,6 +33,13 @@ public final class HttpParameterUtils {
         }
 
         return params.toString();
+    }
+
+    public static boolean isForm(HttpServletRequest request){
+        String contentType = request.getContentType();
+        return contentType != null &&
+                (contentType.contains(FORM_CONTENT_TYPE) ||
+                        contentType.contains(FORM_MULTIPART_CONTENT_TYPE));
     }
 
     public static String getRemoteAddress(HttpServletRequest request) {
@@ -49,9 +61,7 @@ public final class HttpParameterUtils {
         Arrays.stream(headers).forEach(header->
         {
             String value = request.getHeader(header);
-            if (StringUtil.isNotBlank(value)){
-                params.append(header).append("=").append(value).append( "&");
-            }
+            params.append(header).append("=").append(value == null ? "":value).append( "&");
         });
         if (params.length() > 0) {
             params.deleteCharAt(params.length() - 1);
